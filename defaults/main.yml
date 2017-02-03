@@ -1,0 +1,3 @@
+---
+# defaults file for s3_vars
+s3_vars_file_dest: /tmp

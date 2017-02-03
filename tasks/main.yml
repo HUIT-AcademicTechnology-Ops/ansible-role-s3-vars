@@ -1,0 +1,30 @@
+---
+# tasks file for s3_vars
+- block:
+  - name: store destination directory as variable
+    set_fact:
+      s3_vars_file_dest_path: "{{ [s3_vars_file_dest, s3_vars_bucket, s3_vars_object] | join('/') }}"
+
+  # - name: ensure target directory for bucket object exists
+  #   file:
+  #       path: "{{ s3_vars_file_dest_path | dirname }}"
+  #       state: directory
+
+  - name: download config from s3
+    s3:
+      bucket: "{{ s3_vars_bucket }}"
+      object: "{{ s3_vars_object }}"
+      dest: "{{ s3_vars_file_dest_path }}"
+      overwrite: different
+      mode: get
+
+  - name: turn config file into variables
+    include_vars: "{{ s3_vars_file_dest_path }}"
+
+  - name: delete config file from host
+    file:
+        path: "{{ s3_vars_file_dest_path }}"
+    when: s3_vars_delete_config
+
+run_once: true
+become: false
