@@ -24,7 +24,7 @@
   - name: delete config file from host
     file:
         path: "{{ s3_vars_file_dest_path }}"
-    when: s3_vars_delete_config
+    when: s3_vars_delete_config|bool
 
 run_once: true
 become: false

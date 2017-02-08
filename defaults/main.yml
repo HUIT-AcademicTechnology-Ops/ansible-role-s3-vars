@@ -1,3 +1,4 @@
 ---
 # defaults file for s3_vars
 s3_vars_file_dest: /tmp
+s3_vars_delete_config: true
