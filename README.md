@@ -12,9 +12,9 @@ Requirements
 Role Variables
 --------------
 
-s3_vars_file_dest: where s3 file is stored locally, defaults to /tmp
-s3_vars_bucket: the s3 bucket where yaml/json file is located
-s3_vars_object: path/to/YAML/OR/JSON/file in bucket
+* s3_vars_file_dest: where s3 file is stored locally, defaults to /tmp
+* s3_vars_bucket: the s3 bucket where yaml/json file is located
+* s3_vars_object: path/to/YAML/OR/JSON/file in bucket
 
 Dependencies
 ------------
