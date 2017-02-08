@@ -1,14 +1,14 @@
 ---
 # tasks file for s3_vars
 - block:
-  - name: store destination directory as variable
+  - name: store destination path as variable
     set_fact:
       s3_vars_file_dest_path: "{{ [s3_vars_file_dest, s3_vars_bucket, s3_vars_object] | join('/') }}"
 
-  # - name: ensure target directory for bucket object exists
-  #   file:
-  #       path: "{{ s3_vars_file_dest_path | dirname }}"
-  #       state: directory
+  - name: ensure destination directory exists
+    file:
+        path: "{{ s3_vars_file_dest_path | dirname }}"
+        state: directory
 
   - name: download config from s3
     s3:
