@@ -1,30 +1,34 @@
 ---
 # tasks file for s3_vars
 - block:
-  - name: store destination path as variable
+  - name: store config file destination path on localhost as variable
     set_fact:
-      s3_vars_file_dest_path: "{{ [s3_vars_file_dest, s3_vars_bucket, s3_vars_object] | join('/') }}"
+      s3_vars_config_local_file: "{{ s3_vars_config_local_dir + '/' + s3_vars_config_local_file_name }}"
 
-  - name: ensure destination directory exists
+  - name: ensure config file destination directory exists
     file:
-        path: "{{ s3_vars_file_dest_path | dirname }}"
+        path: "{{ s3_vars_config_local_file | dirname }}"
         state: directory
 
   - name: download config from s3
     s3:
+      profile: "{{ s3_vars_aws_profile | d(omit) }}"
       bucket: "{{ s3_vars_bucket }}"
       object: "{{ s3_vars_object }}"
-      dest: "{{ s3_vars_file_dest_path }}"
+      dest: "{{ s3_vars_config_local_file }}"
       overwrite: different
       mode: get
 
   - name: turn config file into variables
-    include_vars: "{{ s3_vars_file_dest_path }}"
+    include_vars:
+      file: "{{ s3_vars_config_local_file }}"
 
-  - name: delete config file from host
+  - name: delete config file from localhost
     file:
-        path: "{{ s3_vars_file_dest_path }}"
-    when: s3_vars_delete_config|bool
+        path: "{{ s3_vars_config_local_file }}"
+        state: absent
+    when: s3_vars_config_cleanup|bool
 
+  delegate_to: 127.0.0.1
   run_once: true
   become: false
