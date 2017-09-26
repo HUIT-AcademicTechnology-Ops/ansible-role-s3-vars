@@ -12,12 +12,16 @@
 
   - name: download config from s3
     s3:
+      aws_access_key: "{{ s3_vars_aws_access_key | d(omit) }}"
+      aws_secret_key: "{{ s3_vars_aws_secret_key | d(omit) }}"
       profile: "{{ s3_vars_aws_profile | d(omit) }}"
       bucket: "{{ s3_vars_bucket }}"
       object: "{{ s3_vars_object }}"
       dest: "{{ s3_vars_config_local_file }}"
       overwrite: different
       mode: get
+    environment:
+      AWS_METADATA_SERVICE_TIMEOUT: 30
 
   - name: turn config file into variables
     include_vars:
@@ -25,8 +29,8 @@
 
   - name: delete config file from localhost
     file:
-        path: "{{ s3_vars_config_local_file }}"
-        state: absent
+      path: "{{ s3_vars_config_local_file }}"
+      state: absent
     when: s3_vars_config_cleanup|bool
 
   delegate_to: 127.0.0.1
