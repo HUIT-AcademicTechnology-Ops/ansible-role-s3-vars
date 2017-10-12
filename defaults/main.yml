@@ -3,3 +3,5 @@
 s3_vars_config_local_dir: "/tmp/ansible-role-s3-vars"
 s3_vars_config_cleanup: true
 s3_vars_config_local_file_name: "{{ s3_vars_bucket + '-' + ( s3_vars_object | replace('/', '-') ) }}"
+# s3_vars_aws_access_key
+# s3_vars_aws_secret_key

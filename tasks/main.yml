@@ -20,8 +20,6 @@
       dest: "{{ s3_vars_config_local_file }}"
       overwrite: different
       mode: get
-    environment:
-      AWS_METADATA_SERVICE_TIMEOUT: 30
 
   - name: turn config file into variables
     include_vars:
