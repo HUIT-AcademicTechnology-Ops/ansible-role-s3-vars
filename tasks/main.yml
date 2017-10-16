@@ -14,6 +14,7 @@
     s3:
       aws_access_key: "{{ s3_vars_aws_access_key | d(omit) }}"
       aws_secret_key: "{{ s3_vars_aws_secret_key | d(omit) }}"
+      security_token: "{{ s3_vars_security_token | d(omit) }}"
       profile: "{{ s3_vars_aws_profile | d(omit) }}"
       bucket: "{{ s3_vars_bucket }}"
       object: "{{ s3_vars_object }}"

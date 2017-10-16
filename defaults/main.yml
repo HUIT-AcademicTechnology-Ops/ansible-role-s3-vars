@@ -5,3 +5,4 @@ s3_vars_config_cleanup: true
 s3_vars_config_local_file_name: "{{ s3_vars_bucket + '-' + ( s3_vars_object | replace('/', '-') ) }}"
 # s3_vars_aws_access_key
 # s3_vars_aws_secret_key
+# s3_vars_security_token
