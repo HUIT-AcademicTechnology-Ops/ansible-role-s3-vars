@@ -8,8 +8,8 @@ python:
 sudo: false
 
 env:
-  - ANSIBLE_VERSION=2.2.0.0
-  - ANSIBLE_VERSION=2.2.1.0
+  - ANSIBLE_VERSION=2.7.10
+  - ANSIBLE_VERSION=2.4.6.0
 
 install:
   # Install ansible
